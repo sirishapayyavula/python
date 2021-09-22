@@ -1,20 +1,23 @@
-def allAnagram(input):
-	dict = {}
-	for strVal in input:
-		key = ''.join(sorted(strVal))
-		if key in dict.keys():
-			dict[key].append(strVal)
-		else:
-			dict[key] = []
-			dict[key].append(strVal)
+def groupAnagrams(words):
+    anagrams = []
+    if not words:
+        return anagrams
+    A = [''.join(sorted(word)) for word in words]
+    dict = {}
+    for i, e in enumerate(A):
+        dict.setdefault(e, []).append(i)
 
-	output = ""
-	for key,value in dict.items():
-		output = output + ' '.join(value) + ' '
-
-	return output
-
-
-if __name__ == "__main__":
-	input=['cat', 'dog', 'tac', 'god', 'act']
-	print (allAnagram(input))
+    for index in dict.values():
+        collection = tuple(words[i] for i in index)
+        if len(collection) > 1:
+            anagrams.append(collection)
+ 
+    return anagrams
+if __name__ == '__main__':
+    
+    words = ['CARS', 'REPAID', 'DUES', 'NOSE', 'SIGNED', 'LANE', 'PAIRED', 'ARCS',
+             'GRAB', 'USED', 'ONES', 'BRAG', 'SUED', 'LEAN', 'helo','abcd','oleh']
+ 
+    anagrams = groupAnagrams(words)
+    for anagram in anagrams:
+        print(anagram)
